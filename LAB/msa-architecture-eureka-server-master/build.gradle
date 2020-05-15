@@ -1,0 +1,60 @@
+buildscript {
+	ext {
+		springBootVersion = '1.5.10.RELEASE'
+	}
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+	}
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+
+group = 'msa-echosystem'
+version = '1.0'
+sourceCompatibility = 1.8
+
+jar {
+	manifest {
+		attributes 'Main-Class': 'com.example.msa.eureka.MsaEurekaServerApplication'
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+
+ext {
+	springCloudVersion = 'Edgware.SR2'
+}
+
+dependencies {
+	compile('org.springframework.boot:spring-boot-starter-actuator')
+	compile('org.springframework.cloud:spring-cloud-starter-config')
+	compile('org.springframework.cloud:spring-cloud-starter-eureka-server')
+	testCompile('org.springframework.boot:spring-boot-starter-test')
+
+	// https://mvnrepository.com/artifact/javax.xml.bind/jaxb-api
+	compile group: 'javax.xml.bind', name: 'jaxb-api', version: '2.4.0-b180830.0359'
+//	compile group: 'javax.xml.bind', name: 'jaxb-api', version: '2.3.1'
+	// https://mvnrepository.com/artifact/com.sun.xml.bind/jaxb-impl
+	compile group: 'com.sun.xml.bind', name: 'jaxb-impl', version: '3.0.0-M2'
+//	compile group: 'com.sun.xml.bind', name: 'jaxb-impl', version: '2.3.0.1'
+	// https://mvnrepository.com/artifact/com.sun.xml.bind/jaxb-core
+	compile group: 'com.sun.xml.bind', name: 'jaxb-core', version: '3.0.0-M2'
+//	compile group: 'com.sun.xml.bind', name: 'jaxb-core', version: '2.3.0.1'
+
+
+
+}
+
+dependencyManagement {
+	imports {
+		mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+	}
+}
